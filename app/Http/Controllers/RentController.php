@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Rent;
+use App\Models\Car; // Import the Car model
+
 
 class RentController extends Controller
 {
@@ -63,5 +65,32 @@ class RentController extends Controller
     {
         $rents = Rent::all();
         return view('rents.index', compact('rents'));
+    }
+
+    public function showForm($carId)
+    {
+        $car = Car::findOrFail($carId);
+        return view('rentclient.form', compact('car'));
+    }
+
+    public function submitForm(Request $request, $carId)
+    {
+        // Validate the incoming request data
+        $request->validate([
+            'client_name' => 'required|string',
+            'phone' => 'required|string',
+            'duration' => 'required|integer',
+        ]);
+
+        // Create a new rent record
+        Rent::create([
+            'client_name' => $request->client_name,
+            'phone' => $request->phone,
+            'duration' => $request->duration,
+            'car_id' => $carId,
+            'status' => 'pending',
+        ]);
+
+        return redirect()->route('rentclient.show', ['car' => $carId])->with('success', 'Your rental request has been submitted successfully!');
     }
 }

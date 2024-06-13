@@ -98,122 +98,37 @@
         </nav>
     </div>
 </header>
-
-
-<!-- hero section -->
-<section class="relative py-32 lg:py-36 bg-white">
-    <div
-        class="mx-auto lg:max-w-7xl w-full px-5 sm:px-10 md:px-12 lg:px-5 flex flex-col lg:flex-row gap-10 lg:gap-12">
-        <div class="absolute w-full lg:w-1/2 inset-y-0 lg:right-0 hidden lg:block">
-            <span
-                class="absolute -left-6 md:left-4 top-24 lg:top-28 w-24 h-24 rotate-90 skew-x-12 rounded-3xl bg-green-400 blur-xl opacity-60 lg:opacity-95 lg:block hidden"></span>
-            <span class="absolute right-4 bottom-12 w-24 h-24 rounded-3xl bg-blue-600 blur-xl opacity-80"></span>
-        </div>
-        <span
-            class="w-4/12 lg:w-2/12 aspect-square bg-gradient-to-tr from-blue-600 to-green-400 absolute -top-5 lg:left-0 rounded-full skew-y-12 blur-2xl opacity-40 skew-x-12 rotate-90"></span>
-        <div class="relative flex flex-col items-center text-center lg:text-left lg:py-7 xl:py-8 
-            lg:items-start lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2">
-
-            <h1 class="text-3xl leading-tight sm:text-4xl md:text-5xl xl:text-6xl
-            font-bold text-gray-900">
-                Experience <span
-                    class="text-transparent bg-clip-text bg-gradient-to-br from-indigo-600 from-20% via-blue-600 via-30% to-green-600">the Ultimate</span>
-                Convenience with Our Car Rental Services!
-            </h1>
-            <p class="mt-8 text-gray-700">
-                Discover the Perfect Ride for Your Adventures! Easy, Reliable, and Hassle-Free Car Rentals Await You.
-            </p>
-            <div class="mt-10  w-full flex max-w-md mx-auto lg:mx-0">
-                <div class="flex sm:flex-row flex-col gap-5 w-full">
-                   
-                </div>
+<div class="container mx-auto px-4 py-8 mt-20">
+    <div class="max-w-lg mx-auto bg-white p-6 shadow-md rounded-lg">
+        <h2 class="text-2xl font-bold mb-6 text-center">Rent {{ $car->name }}</h2>
+        
+        @if(session('success'))
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+                {{ session('success') }}
             </div>
-        </div>
-         
-           <div class="flex flex-1 lg:w-1/2 lg:h-auto relative lg:max-w-none lg:mx-0 mx-auto max-w-3xl">
-            <img src="https://www.mtpleasantagency.com/wp-content/uploads/sites/70/2018/03/car-rental-insurance-oakville-insurance-brokers-March-1-800x534.jpg" alt="Hero image" width="2350" height="2359"
-                class="lg:absolute lg:w-full lg:h-full rounded-3xl object-cover lg:max-h-none max-h-96">
-        </div>
+        @endif
+
+        <form method="POST" action="{{ route('rentclient.submit', ['car' => $car->id]) }}">
+            @csrf
+            <div class="mb-4">
+                <label for="client_name" class="block text-gray-700">Your Name</label>
+                <input type="text" id="client_name" name="client_name" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+            </div>
+            <div class="mb-4">
+                <label for="phone" class="block text-gray-700">Phone</label>
+                <input type="text" id="phone" name="phone" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+            </div>
+            <div class="mb-4">
+                <label for="duration" class="block text-gray-700">Duration (days)</label>
+                <input type="number" id="duration" name="duration" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+            </div>
+            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
+        </form>
     </div>
-</section>
-
-
-<div class="relative pt-2 lg:pt-2 min-h-screen">
-
-    <div class="bg-cover w-full flex justify-center items-center"
-        style="background-image: url('/images/mybackground.jpeg');">
-        <div class="w-full bg-white p-5  bg-opacity-40 backdrop-filter backdrop-blur-lg">
-            <div class="w-12/12 mx-auto rounded-2xl bg-white p-5 bg-opacity-40 backdrop-filter backdrop-blur-lg">
-
-            <div id="cars" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-center px-2 mx-auto">
-                @if($availableCars->isEmpty())
-                <p>No cars available at the moment.</p>
-                @else
-                    @foreach($availableCars as $car)
-                    <article class="bg-white p-6 mb-6 shadow transition duration-300 group transform hover:-translate-y-2 hover:shadow-2xl rounded-2xl cursor-pointer border">
-                        <a target="_self" href="{{ route('rentclient.show', ['car' => $car->id]) }}" class="absolute opacity-0 top-0 right-0 left-0 bottom-0"></a>
-                        <div class="relative mb-4 rounded-2xl">
-                            <img class="max-h-80 rounded-2xl w-full object-cover transition-transform duration-300 transform group-hover:scale-105" src="{{ $car->imglink }}" alt="">
-                            <div class="absolute bottom-3 left-3 inline-flex items-center rounded-lg bg-white p-2 shadow-md">
-                                <span class="ml-1 text-md font-bold text-slate-400">{{ $car->price }} MAD</span>
-                            </div>
-                            <a class="flex justify-center items-center bg-blue-700 bg-opacity-80 z-10 absolute top-0 left-0 w-full h-full text-white rounded-2xl opacity-0 transition-all duration-300 transform group-hover:scale-105 text-xl group-hover:opacity-100" href="{{ route('rentclient.show', ['car' => $car->id]) }}" target="_self" rel="noopener noreferrer">
-                                Rent car
-                                <svg class="ml-2 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                        </div>
-                        <div class="flex justify-between items-center w-full pb-4 mb-auto">
-                            <div class="flex justify-end">
-                                <div class="text-md flex items-center text-gray-500">
-                                    {{ $car->name }}
-                                </div>
-                            </div>
-                        </div>
-                        <div></div>
-                    </article>
-                    @endforeach
-                @endif
-            </div>
-
-               
-            </div>
-        </div>
-    </div>
-    <section class="bg-white dark:bg-gray-900">
-  <div class="max-w-screen-xl px-4 py-8 mx-auto text-center lg:py-16 lg:px-6">
-      <figure class="max-w-screen-md mx-auto">
-          <svg class="h-12 mx-auto mb-3 text-gray-400 dark:text-gray-600" viewBox="0 0 24 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M14.017 18L14.017 10.609C14.017 4.905 17.748 1.039 23 0L23.995 2.151C21.563 3.068 20 5.789 20 8H24V18H14.017ZM0 18V10.609C0 4.905 3.748 1.038 9 0L9.996 2.151C7.563 3.068 6 5.789 6 8H9.983L9.983 18L0 18Z" fill="currentColor"/>
-          </svg> 
-          <blockquote>
-            <p class="text-2xl font-medium text-gray-900 dark:text-white">"RentCar is amazing. They offer a wide variety of vehicles and the booking process is quick and easy. Perfect for your next vacation or business trip."</p>          </blockquote>
-          <figcaption class="flex items-center justify-center mt-6 space-x-3">
-              <img class="w-6 h-6 rounded-full" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAgX6TNEj3QBH5AloHimts73J6rVrUsLboxQ&s" alt="profile picture">
-              <div class="flex items-center divide-x-2 divide-gray-500 dark:divide-gray-700">
-                  <div class="pr-3 font-medium text-gray-900 dark:text-white">Youssef</div>
-                  <div class="pl-3 text-sm font-light text-gray-500 dark:text-gray-400">Morocco national team | Sevilla Football player</div>
-              </div>
-          </figcaption>
-      </figure>
-  </div>
-</section>
 </div>
 
 
 
-<div class="bg-white py-24 sm:py-32">
-  <div class="mx-auto max-w-7xl px-6 lg:px-8">
-    <div class="mx-auto grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5">
-    <img class="col-span-2 col-start-2 max-h-24 w-full object-contain sm:col-start-auto lg:col-span-1" src="https://logodownload.org/wp-content/uploads/2014/09/renault-logo-2-1.png" alt="Statamic">
-    <img class="col-span-2 col-start-2 max-h-24 w-full object-contain sm:col-start-auto lg:col-span-1" src="https://iconape.com/wp-content/png_logo_vector/bmw-logo.png" alt="Statamic">
-    <img class="col-span-2 col-start-2 max-h-24 w-full object-contain sm:col-start-auto lg:col-span-1" src="https://www.freepnglogos.com/uploads/mercedes-logo-png/mercedes-logo-home-page-palm-beach-classics-8.png" alt="Statamic">
-    <img class="col-span-2 col-start-2 max-h-24 w-full object-contain sm:col-start-auto lg:col-span-1" src="https://logolook.net/wp-content/uploads/2023/12/Dacia-Logo.png" alt="Statamic">
-    <img class="col-span-2 col-start-2 max-h-24 w-full object-contain sm:col-start-auto lg:col-span-1" src="https://www.logo-voiture.com/wp-content/uploads/2023/02/toyota-logo-europe-1.png" alt="Statamic">
-    </div>
-  </div>
-</div>
 
 
 
@@ -283,7 +198,7 @@
     </div>
 <style>
         html{
-        scroll-behavior: smooth;
+            scroll-behavior: smooth;
         }
         body {
             font-family: "Raleway", sans-serif;

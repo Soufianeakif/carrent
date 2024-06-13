@@ -18,6 +18,9 @@ use App\Http\Controllers\RentController;
 
 Route::get('/', [CarController::class, 'indexGeneral'])->name('home');
 
+Route::get('/rentclient/{car}', [RentController::class, 'showForm'])->name('rentclient.show');
+Route::post('/rentclient/{car}', [RentController::class, 'submitForm'])->name('rentclient.submit');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
