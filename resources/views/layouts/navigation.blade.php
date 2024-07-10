@@ -15,14 +15,23 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <!-- Add the Cars link here -->
+
+                    <!-- Cars Link -->
                     <x-nav-link :href="route('cars.index')" :active="request()->routeIs('cars.*')">
                         {{ __('Cars') }}
                     </x-nav-link>
+
+                    <!-- View Rents Link -->
                     <x-nav-link :href="route('rents.index')" :active="request()->routeIs('rents.index')">
                         {{ __('View Rents') }}
                     </x-nav-link>
+
+                    <!-- Add Employee Link (redirect to register) -->
+                    <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
+                        {{ __('Add Employee') }}
+                    </x-nav-link>
                 </div>
+
             </div>
 
             <!-- Settings Dropdown -->

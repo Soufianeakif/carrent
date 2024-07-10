@@ -1,4 +1,9 @@
-<x-guest-layout>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Add Employee') }}
+        </h2>
+    </x-slot>
     <form method="POST" action="{{ route('register') }}" class="max-w-md mx-auto">
         @csrf
 
@@ -30,13 +35,8 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
-        <div class="flex items-center justify-between mt-6">
-            <p class="text-sm text-gray-600">Already registered?</p>
-            <a href="{{ route('login') }}" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">Log in</a>
-        </div>
-
         <div class="mt-6">
-            <button type="submit" class="w-full px-4 py-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:bg-indigo-700">Register</button>
+            <button type="submit" class="w-full px-4 py-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:bg-indigo-700">Add Employee</button>
         </div>
     </form>
-</x-guest-layout>
+</x-app-layout>

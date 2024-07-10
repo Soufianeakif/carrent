@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <form action="{{ route('cars.update', $car) }}" method="POST">
+                    <form action="{{ route('cars.update', $car) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="mb-4">
@@ -25,8 +25,11 @@
                             <input type="text" name="model" id="model" value="{{ $car->model }}" class="mt-1 block w-full" required>
                         </div>
                         <div class="mb-4">
-                            <label for="imglink" class="block text-sm font-medium text-gray-700">Image Link</label>
-                            <input type="text" name="imglink" id="imglink" value="{{ $car->imglink }}" class="mt-1 block w-full">
+                            <label for="imglink" class="block text-sm font-medium text-gray-700">Image</label>
+                            <input type="file" name="imglink" id="imglink" class="mt-1 block w-full">
+                            @if ($car->imglink)
+                                <img src="{{ asset('storage/' . $car->imglink) }}" alt="Current Image" class="mt-2" width="150">
+                            @endif
                         </div>
                         <div class="mb-4">
                             <label for="availability" class="block text-sm font-medium text-gray-700">Availability</label>
@@ -36,7 +39,7 @@
                             </select>
                         </div>
                         <div class="mb-4">
-                            <button type="submit" class="btn btn-primary">Update Car</button>
+                            <button type="submit" class="w-full px-4 py-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:bg-indigo-700">Update Car</button>
                         </div>
                     </form>
                 </div>

@@ -15,8 +15,8 @@
             <!-- logo -->
             <div class="min-w-max inline-flex relative">
                 <a href="/" class="relative flex items-center gap-3">
-                    <div class="relative w-9 h-9 overflow-hidden flex rounded-xl">
-                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 40 40"><path fill="#0096FF" d="M20 0c11.046 0 20 8.954 20 20v14a6 6 0 0 1-6 6H21v-8.774c0-2.002.122-4.076 1.172-5.78a10 10 0 0 1 6.904-4.627l.383-.062a.8.8 0 0 0 0-1.514l-.383-.062a10 10 0 0 1-8.257-8.257l-.062-.383a.8.8 0 0 0-1.514 0l-.062.383a9.999 9.999 0 0 1-4.627 6.904C12.85 18.878 10.776 19 8.774 19H.024C.547 8.419 9.29 0 20 0Z"></path><path fill="#0096FF" d="M0 21h8.774c2.002 0 4.076.122 5.78 1.172a10.02 10.02 0 0 1 3.274 3.274C18.878 27.15 19 29.224 19 31.226V40H6a6 6 0 0 1-6-6V21ZM40 2a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"></path></svg>
+                    <div class="relative w-20 overflow-hidden flex rounded-xl">
+                        <img class="" src="{{ asset('storage/images/carrent.png') }}" alt="">
                     </div>
                     <div class="inline-flex text-lg font-semibold text-gray-900 mt-1">
                         Car rent
@@ -67,15 +67,6 @@
                             Login
                         </span>
                     </a>
-                    @if (Route::has('register'))
-                    <a href="{{ route('register') }}"
-                        class="ml-2 flex justify-center items-center w-full sm:w-max px-6 h-12 rounded-full outline-none relative overflow-hidden border duration-300 ease-linear
-                    after:absolute after:inset-x-0 after:aspect-square after:scale-0 after:opacity-70 after:origin-center after:duration-300 after:ease-linear after:rounded-full after:top-0 after:left-0 after:bg-[#172554] hover:after:opacity-100 hover:after:scale-[2.5] bg-blue-600 border-transparent hover:border-[#172554]">
-                        <span class="relative z-10 text-white">
-                            Register
-                        </span>
-                    </a>
-                    @endif
                     @endauth
                     @endif
                 </div>
@@ -153,7 +144,7 @@
                     <article class="bg-white p-6 mb-6 shadow transition duration-300 group transform hover:-translate-y-2 hover:shadow-2xl rounded-2xl cursor-pointer border">
                         <a target="_self" href="{{ route('rentclient.show', ['car' => $car->id]) }}" class="absolute opacity-0 top-0 right-0 left-0 bottom-0"></a>
                         <div class="relative mb-4 rounded-2xl">
-                            <img class="max-h-80 rounded-2xl w-full object-cover transition-transform duration-300 transform group-hover:scale-105" src="{{ $car->imglink }}" alt="">
+                            <img class="max-h-80 rounded-2xl w-full object-cover transition-transform duration-300 transform group-hover:scale-105" src="{{ asset('storage/' . $car->imglink) }}" alt="">
                             <div class="absolute bottom-3 left-3 inline-flex items-center rounded-lg bg-white p-2 shadow-md">
                                 <span class="ml-1 text-md font-bold text-slate-400">{{ $car->price }} MAD</span>
                             </div>

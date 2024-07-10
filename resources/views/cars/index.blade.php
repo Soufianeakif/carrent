@@ -29,7 +29,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $car->model }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     @if($car->imglink)
-                                    <img src="{{ $car->imglink }}" alt="{{ $car->name }}" class="w-20 h-20 object-cover">
+                                    <img src="{{ asset('storage/' . $car->imglink) }}" alt="{{ $car->name }}" class="w-20 h-20 object-cover">
                                     @else
                                     <p>No image available</p>
                                     @endif

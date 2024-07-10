@@ -15,7 +15,11 @@
                     <p>Model: {{ $car->model }}</p>
                     <p>Availability: {{ $car->availability ? 'Available' : 'Not Available' }}</p>
                     @if($car->imglink)
+<<<<<<< HEAD
+                        <img src="{{ asset('storage/' . $car->imglink) }}" alt="{{ $car->name }}" class="w-64">
+=======
                         <img src="{{ $car->imglink }}" alt="{{ $car->name }}" class="w-64">
+>>>>>>> 28f5a0d03afb7c932fe09ff57de5cb96b581d74a
                     @else
                         <p>No image available</p>
                     @endif
